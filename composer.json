@@ -16,6 +16,7 @@
         "psr-4": {"Niyko\\Rocket\\": "src/"}
     },
     "require": {
-        "php": ">=7.4.0"
+        "php": ">=7.4.0",
+        "symfony/var-dumper": "^6.4"
     }
 }
