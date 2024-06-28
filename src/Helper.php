@@ -2,6 +2,8 @@
 
 namespace Niyko\Rocket;
 
+use StringTemplate\Engine;
+
 class Helper
 {
     public static function getCurrentUrl(){
@@ -13,22 +15,24 @@ class Helper
         return $current_url;
     }
 
-    public static function getCurrentPage(){
+    public static function getBaseUrl(){
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS']!=='off' || $_SERVER['SERVER_PORT']==443)?'https://':'http://';
+        $host = $_SERVER['HTTP_HOST'];
+
+        return $protocol.$host;
+    }
+
+    public static function getCurrentPagePath(){
         $current_url = self::getCurrentUrl();
-        $splited_url = explode('/', $current_url);
+        $base_url = self::getBaseUrl();
+        $page_path = str_replace($base_url, '', $current_url);
 
-        if(count($splited_url)==0) return false;
-        else{
-            $page_name = end($splited_url);
-
-            if($page_name=='') return 'index';
-            else return $page_name;
-        }
+        return $page_path;
     }
 
     public static function getRegisteredPageObject($page_objects, $page_name){
         foreach($page_objects as $page_object){
-            if($page_object['page']==$page_name){
+            if($page_object['page_name']==$page_name){
                 return $page_object;
             }
         }
@@ -42,5 +46,16 @@ class Helper
 
     public static function getPackagePath($append_path=''){
         return 'vendor/niyko/rocket/'.$append_path;
+    }
+
+    public static function isBuildInstance(){
+        return php_sapi_name()=='cli';
+    }
+
+    public static function parseStringTemplate($template, $parameters){
+        $engine = new Engine();
+        $string = $engine->render($template, $parameters);
+
+        return $string;
     }
 }

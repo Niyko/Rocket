@@ -30,15 +30,36 @@ class Build extends Command
         $file_system->mkdir('build');
 
         $output->writeln('<fg=green>✅ Build folder is cleared and remade.</>');
+
+        if($file_system->exists('assets')){
+            $file_system->mkdir('build/assets');
+            $file_system->mirror('assets', 'build/assets');
+
+            $output->writeln('<fg=green>✅ Asset folder is cleared and copied.</>');
+        }
+
         $output->writeln('⚙️ Rendering build files from views.');
 
-        $page_objects = Rocket::$page_objects;
-        $progress_bar = Helper::progressBar($output, count($page_objects));
+        $progress_bar = Helper::progressBar($output, count($GLOBALS['_rocket_pages']));
         $progress_bar->start();
 
-        foreach($page_objects as $page_object){
-            $html = Blade::getHtml($page_object['view']);
-            $file_system->dumpFile('build/'.$page_object['page'].'.html', $html);
+        foreach($GLOBALS['_rocket_pages'] as $path => $page){
+            $html = Blade::getHtml($page['view']['path'], $page['view']['parameters']);
+
+            if($path=='/'){
+                $file_name = 'index.html';
+                $file_path = '';
+            }
+            else{
+                $path_splits = explode('/', $path);
+                $file_name = end($path_splits);
+                $file_name = $file_name.'.html';
+                array_pop($path_splits);
+                $file_path = implode('/', $path_splits);
+            }
+
+            $file_system->mkdir('build'.$file_path);
+            $file_system->dumpFile('build'.$file_path.'/'.$file_name, $html);
             $progress_bar->advance();
         }
 
@@ -56,7 +77,7 @@ class Build extends Command
 
         $zip_file = new ZipFile();
         try{
-            $zip_file->addDir('build')
+            $zip_file->addDirRecursive('build')
                 ->saveAsFile('build/build.zip')
                 ->close();
 

@@ -15,4 +15,10 @@ class Helper
 
         return $progress_bar;
     }
+
+    public static function isPortOpen($port){
+        $socket = @fsockopen('localhost', $port);
+
+        return $socket==true;
+    }
 }

@@ -6,11 +6,11 @@ use eftec\bladeone\BladeOne;
 
 class Blade
 {
-    public static function getHtml($view){
+    public static function getHtml($view, $parameters){
         $views = 'views';
         $cache = 'cache';
         $blade = new BladeOne($views, $cache, BladeOne::MODE_DEBUG);
         
-        return $blade->run($view, []);
+        return $blade->run($view, $parameters);
     }
 }

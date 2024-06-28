@@ -6,45 +6,50 @@ use Spatie\Ignition\Ignition;
 
 class Rocket
 {
-    public static $page_objects;
-
     public static function init(){
+        $GLOBALS['_rocket_pages'] = [];
+
         Ignition::make()
             ->setTheme('dark')
             ->register();
     }
 
-    public static function page($page, $view){
-        self::$page_objects[] = [
-            'page' => $page,
-            'view' => $view
-        ];
+    public static function page($name){
+        return (new Page)::create($name);
     }
 
     public static function start(){
-        if(php_sapi_name()!='cli'){
-            $current_page = Helper::getCurrentPage();
+        if(!Helper::isBuildInstance()){
+            $current_page_path = Helper::getCurrentPagePath();
 
-            if(!$current_page){
-                echo Helper::get404PageHtml();
+            if(substr($current_page_path, 0, 8)==='/assets/'){
+                $parsed_url = parse_url($current_page_path);
+                $file_real_path = realpath(ltrim($parsed_url['path'], '/'));
 
-                exit();
-            }
-            else{
-                $page_object = Helper::getRegisteredPageObject(self::$page_objects, $current_page);
-
-                if(!$page_object){
-                    echo Helper::get404PageHtml();
+                if(file_exists($file_real_path)){
+                    header('Content-Type: '.mime_content_type($file_real_path));
+                    readfile($file_real_path);
 
                     exit();
                 }
                 else{
-                    $html = Blade::getHtml($page_object['view']);
-                    
-                    echo $html;
+                    echo Helper::get404PageHtml();
 
                     exit();
                 }
+            }
+            else if(isset($GLOBALS['_rocket_pages'][$current_page_path])){
+                $page = $GLOBALS['_rocket_pages'][$current_page_path];
+                $html = Blade::getHtml($page['view']['path'], $page['view']['parameters']);
+
+                echo $html;
+
+                exit();
+            }
+            else {
+                echo Helper::get404PageHtml();
+
+                exit();
             }
         }
     }
