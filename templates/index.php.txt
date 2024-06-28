@@ -1,0 +1,11 @@
+<?php
+
+require __DIR__.'/vendor/autoload.php';
+
+use Niyko\Rocket\Rocket;
+
+Rocket::init();
+
+Rocket::page('sample')->url('/')->view('sample')->add();
+
+Rocket::start();

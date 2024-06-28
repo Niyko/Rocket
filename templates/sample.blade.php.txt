@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Sample page &bull; Rocket</title>
+
+        <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('images/favicon.png') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+
+        <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    </head>
+    <body>
+        <div>
+            <img src="{{ asset('images/logo.png') }}">
+            <h1>Rocket</h1>
+            <p>A static site generator written in PHP<br>which uses Laravel's Blade template engine</p>
+            <span>This is a sample page</span>
+            <a href="https://github.com/Niyko/Rocket" target="_blank"><i class="ri-github-fill"></i></a>
+        </div>
+    </body>
+</html>

@@ -25,15 +25,18 @@ class Build extends Command
         $output->writeln('<fg=#ef4444;options=bold>🚀 Rocket Framework</> <fg=white;options=bold>• v1.0</>');
         $output->writeln('<fg=white;options=bold>──────────────────────────</>');
         $output->writeln('<fg=yellow>🔥 Baking project production build.</>');
+        $output->writeln('');
 
-        if($file_system->exists('build')) $file_system->remove('build');
-        $file_system->mkdir('build');
+        if(!$file_system->exists('build')) $file_system->mkdir('build');
+
+        if($file_system->exists('dist')) $file_system->remove('dist');
+        $file_system->mkdir('dist');
 
         $output->writeln('<fg=green>✅ Build folder is cleared and remade.</>');
 
         if($file_system->exists('assets')){
-            $file_system->mkdir('build/assets');
-            $file_system->mirror('assets', 'build/assets');
+            $file_system->mkdir('dist/assets');
+            $file_system->mirror('assets', 'dist/assets');
 
             $output->writeln('<fg=green>✅ Asset folder is cleared and copied.</>');
         }
@@ -58,8 +61,8 @@ class Build extends Command
                 $file_path = implode('/', $path_splits);
             }
 
-            $file_system->mkdir('build'.$file_path);
-            $file_system->dumpFile('build'.$file_path.'/'.$file_name, $html);
+            $file_system->mkdir('dist'.$file_path);
+            $file_system->dumpFile('dist'.$file_path.'/'.$file_name, $html);
             $progress_bar->advance();
         }
 
@@ -77,8 +80,8 @@ class Build extends Command
 
         $zip_file = new ZipFile();
         try{
-            $zip_file->addDirRecursive('build')
-                ->saveAsFile('build/build.zip')
+            $zip_file->addDirRecursive('dist')
+                ->saveAsFile('build/build-'.time().'.zip')
                 ->close();
 
             $output->write("\033[1A");
@@ -94,7 +97,9 @@ class Build extends Command
             $zip_file->close();
         }
 
-        $output->writeln('<fg=green>✅ Build is fully completed and available in the "build" directory.</>');
+        $output->writeln('');
+        $output->writeln('<fg=cyan>🌀 Build zip file is fully completed and available in the <options=bold>"dist"</> directory.</>');
+        $output->writeln('<fg=cyan>🌀 Zip file of the build is available in the <options=bold>"build"</> directory.</>');
 
         return Command::SUCCESS;
     }

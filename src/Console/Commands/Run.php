@@ -23,14 +23,14 @@ class Run extends Command
         $output->writeln('');
         $output->writeln('<fg=#ef4444;options=bold>🚀 Rocket Framework</> <fg=white;options=bold>• v1.0</>');
         $output->writeln('<fg=white;options=bold>──────────────────────────</>');
-        $output->writeln('<fg=yellow>🌈 Server server is started, Go to the link (<href=http://localhost:'.$server_port.'/index.html>http://localhost:'.$server_port.'/index.html</>) to view the site.</>');
+        $output->writeln('<fg=yellow>🍕 Server server is started, Go to the link (<href=http://localhost:'.$server_port.'/index.html>http://localhost:'.$server_port.'/index.html</>) to view the site.</>');
         $output->writeln('');
 
         $file_system = new Filesystem();
 
-        if($file_system->exists('build')){
+        if($file_system->exists('dist')){
             Server::new()
-                ->root(realpath('build'))
+                ->root(realpath('dist'))
                 ->port($server_port)
                 ->output(function ($log) use ($output){
                     $output->writeln($log);

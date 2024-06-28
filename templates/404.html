@@ -1,11 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Page not found &bull; Rocket</title>
+        <title>404 &bull; Page note found</title>
+
+        <link rel="icon" type="image/png" sizes="96x96" href="https://i.imgur.com/f2Kxa9g.png">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+
+        <style>
+            body{
+                font-family: 'Inter', sans-serif;
+                background: url('https://i.imgur.com/ooDRhrG.png');
+                background-size: cover;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                padding: 0px;
+                margin: 0px;
+            }
+            
+            img{
+                width: 110px;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            h1{
+                font-weight: 600;
+                text-align: center;
+                font-size: 24px;
+                margin-top: 3px;
+                color: #000000;
+                margin-bottom: 10px;
+            }
+            
+            p{
+                font-weight: 500;
+                text-align: center;
+                font-size: 15px;
+                color: #64748b;
+                line-height: 1.6;
+                margin-top: 0px;
+            }
+            
+            a{
+                text-align: center;
+                display: block;
+                font-size: 34px;
+                color: #64748b;
+                opacity: 0.4;
+                width: max-content;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 25px;
+                text-decoration: none !important;
+                transition-duration: 0.4s;
+            }
+            
+            a:hover{
+                opacity: 1;
+            }
+        </style>
     </head>
     <body>
-        <h2>404 &bull; Page not found</h2>
+        <div>
+            <img src="https://i.imgur.com/37pHtKY.png">
+            <h1>Page not found</h1>
+            <p>The requested URL or file is not<br>found on this server.</p>
+            <a href="/"><i class="ri-home-5-line"></i></a>
+        </div>
     </body>
 </html>
