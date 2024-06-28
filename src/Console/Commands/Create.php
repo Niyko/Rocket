@@ -31,6 +31,11 @@ class Create extends Command
             $output->writeln('<fg=green>✅ Git ignore file is created.</>');
         }
 
+        if($file_system->exists('composer.json')){
+            self::addScriptToComposer($file_system);
+            $output->writeln('<fg=green>✅ Script have been added to composer file.</>');
+        }
+
         if(!$file_system->exists('views')){
             $file_system->mkdir('views');
             $file_system->copy(Helper::getPackagePath('templates/sample.blade.php.txt'), 'views/sample.blade.php');
@@ -49,5 +54,27 @@ class Create extends Command
         $output->writeln('<fg=cyan>🌀 Run the command <options=bold>composer rocket dev</> to test the sample template.</>');
 
         return Command::SUCCESS;
+    }
+
+    private function addScriptToComposer($file_system){
+        $script_command = 'php vendor/niyko/rocket/src/Console/Console.php --ansi';
+        $composer_json = file_get_contents('composer.json');
+        $composer_data = json_decode($composer_json, true);
+
+        if(!isset($composer_data['scripts'])){
+            $composer_data['scripts'] = [];
+        }
+
+        if(!isset($composer_data['scripts']['rocket']) || $composer_data['scripts']['rocket']!==$script_command){
+            $composer_data['scripts']['rocket'] = $script_command;
+        }
+
+        if(isset($composer_data['autoload']) && empty($composer_data['autoload'])){
+            $composer_data['autoload'] = (object) $composer_data['autoload'];
+        }
+
+        $composer_json = json_encode($composer_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+
+        $file_system->dumpFile('composer.json', $composer_json);
     }
 }
