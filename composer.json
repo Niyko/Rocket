@@ -23,8 +23,8 @@
         ]
     },
     "require": {
-        "php": ">=7.4.0",
-        "symfony/var-dumper": "^5.4",
+        "php": ">=8.2.0",
+        "symfony/var-dumper": "^6.4",
         "eftec/bladeone": "^4.13",
         "spatie/ignition": "^1.14",
         "symfony/console": "^6.4",
