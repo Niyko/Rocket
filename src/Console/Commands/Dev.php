@@ -7,6 +7,7 @@ use Statix\Server\Server;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class Dev extends Command
 {
@@ -18,6 +19,9 @@ class Dev extends Command
         while(Helper::isPortOpen($server_port)){
             $server_port = $server_port+1;
         }
+
+        $file_system = new Filesystem();
+        if(!$file_system->exists('cache')) $file_system->mkdir('cache');
 
         $output->writeln('');
         $output->writeln('<fg=#ef4444;options=bold>🚀 Rocket Framework</> <fg=white;options=bold>• v1.0</>');
