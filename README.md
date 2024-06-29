@@ -11,7 +11,7 @@ The Rocket framework has a few system requirements. You should ensure that your 
 Rocket framework can be installed from the composer package manager. Make sure you can installed PHP and Composer from the requirments section before continuing with the steps given below.
 
 * Create a project folder and open a command prompt inside that folder.
-* Run the command `composer require niyko/rocket;dev-main` to install the plugin.
+* Run the command `composer require niyko/rocket:dev-main` to install the plugin.
 * To setup the project, run the command `php vendor/niyko/rocket/src/Console/Console.php --ansi create`
 * Explore the sample project that is copied to the project folder.
 * Run the sample project with the command `composer rocket dev`.
