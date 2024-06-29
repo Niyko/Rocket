@@ -143,10 +143,10 @@ Rocket::start();
 </html>
 `````
 
-### :rocket: Production build
+### :package: Production build
 Running `composer rocket build` generates an optimized version of your application for production. HTML, CSS, and JavaScript files are created based on your pages. This build is stored in the `dist` folder and a zipped version of the same is saved in the `build` folder.
 
-### :open_file_folder: Deploying
+### :rocket: Deploying
 As the final output of the build is a static HTML based website, you can use them in anyway you want. To test the build, you can use the command `composer rocket run`. Which will create a server which runs the static files created in the build.
 
 > `composer rocket run` should not be used to host the build in production. This command should only be used for testing purpose. It is recommended to use `Ngnix` or `Apache` as a server in production.
