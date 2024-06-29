@@ -1,7 +1,7 @@
 ![Rocket logo](https://i.imgur.com/51D1iLH.png)
 Rocket is a static site generator written in PHP which uses Laravel's Blade template engine under the hood to generate build. Rocket automates the task of coding individual HTML pages and gets those pages ready to serve to users ahead of time. Because these HTML pages are pre-built, they can load very quickly in the browser.
 
-### :rocket: Get started
+### :zap: Get started
 Rocket framework can be installed from the composer package manager. Make sure you can installed PHP and Composer from the requirments section before continuing with the steps given below.
 
 * Create a project folder and open a command prompt inside that folder.
@@ -13,7 +13,7 @@ Rocket framework can be installed from the composer package manager. Make sure y
 
 > You can change the files in the project and reload the browser to view change. Restarting the development server is not required.
 
-### :rocket: Project structure
+### :open_file_folder: Project structure
 This project struture shows where is all the different files are located. An overview of the project structure of a Rocket application. It covers top-level files and folders, configuration files, and routing conventions.
 
 * `/index.php` file contains routes for the pages.
