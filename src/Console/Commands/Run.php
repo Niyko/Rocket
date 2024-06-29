@@ -36,6 +36,9 @@ class Run extends Command
                     $output->writeln($log);
                 })->start();
         }
+        else{
+            $output->writeln('<fg=red>⛔️ Build is not created. Use the command <options=bold>composer rocket run</> to create the build first.</>');
+        }
 
         return Command::SUCCESS;
     }
