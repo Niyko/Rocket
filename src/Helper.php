@@ -2,6 +2,7 @@
 
 namespace Niyko\Rocket;
 
+use Defr\PhpMimeType\MimeType;
 use StringTemplate\Engine;
 
 class Helper
@@ -57,5 +58,11 @@ class Helper
         $string = $engine->render($template, $parameters);
 
         return $string;
+    }
+
+    public static function getFileContentType($path){
+        $mime_type = MimeType::get($path);
+
+        return $mime_type;
     }
 }

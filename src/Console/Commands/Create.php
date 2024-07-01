@@ -73,6 +73,14 @@ class Create extends Command
             $composer_data['autoload'] = (object) $composer_data['autoload'];
         }
 
+        if(!isset($composer_data['config'])){
+            $composer_data['config'] = [];
+        }
+
+        if(!isset($composer_data['config']['process-timeout']) || $composer_data['config']['process-timeout']!==$script_command){
+            $composer_data['config']['process-timeout'] = 0;
+        }
+
         $composer_json = json_encode($composer_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
         $file_system->dumpFile('composer.json', $composer_json);

@@ -27,7 +27,7 @@ class Rocket
                 $file_real_path = realpath(ltrim($parsed_url['path'], '/'));
 
                 if(file_exists($file_real_path)){
-                    header('Content-Type: '.mime_content_type($file_real_path));
+                    header('Content-Type: '.Helper::getFileContentType($file_real_path));
                     readfile($file_real_path);
 
                     exit();
