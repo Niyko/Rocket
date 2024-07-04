@@ -25,7 +25,7 @@ class Helper
     }
 
     public static function packageVersion(){
-        return \Composer\InstalledVersions::getVersion('vendor/package');
+        return \Composer\InstalledVersions::getPrettyVersion('niyko/rocket');
     }
 
     public static function renderIntro($input, $output){
