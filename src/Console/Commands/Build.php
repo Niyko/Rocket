@@ -4,7 +4,6 @@ namespace Niyko\Rocket\Console\Commands;
 
 use Niyko\Rocket\Blade;
 use Niyko\Rocket\Console\Helper;
-use Niyko\Rocket\Rocket;
 use PhpZip\Exception\ZipException;
 use PhpZip\ZipFile;
 use Symfony\Component\Console\Command\Command;
@@ -22,7 +21,7 @@ class Build extends Command
         $file_system = new Filesystem();
 
         $output->writeln('');
-        $output->writeln('<fg=#ef4444;options=bold>🚀 Rocket Framework</> <fg=white;options=bold>• v1.0</>');
+        $output->writeln('<fg=#ef4444;options=bold>🚀 Rocket Framework</> <fg=white;options=bold>• v'.Helper::packageVersion().'</>');
         $output->writeln('<fg=white;options=bold>──────────────────────────</>');
         $output->writeln('<fg=yellow>🔥 Baking project production build.</>');
         $output->writeln('');

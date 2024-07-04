@@ -24,7 +24,7 @@ class Dev extends Command
         if(!$file_system->exists('cache')) $file_system->mkdir('cache');
 
         $output->writeln('');
-        $output->writeln('<fg=#ef4444;options=bold>🚀 Rocket Framework</> <fg=white;options=bold>• v1.0</>');
+        $output->writeln('<fg=#ef4444;options=bold>🚀 Rocket Framework</> <fg=white;options=bold>• v'.Helper::packageVersion().'</>');
         $output->writeln('<fg=white;options=bold>──────────────────────────</>');
         $output->writeln('<fg=yellow>🌈 Development server is started, Go to the link (<href=http://localhost:'.$server_port.'>http://localhost:'.$server_port.'</>) to view the site.</>');
         $output->writeln('');

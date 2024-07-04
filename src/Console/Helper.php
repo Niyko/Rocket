@@ -24,9 +24,13 @@ class Helper
         return $socket==true;
     }
 
+    public static function packageVersion(){
+        return \Composer\InstalledVersions::getVersion('vendor/package');
+    }
+
     public static function renderIntro($input, $output){
         $output->writeln('');
-        $output->writeln('<fg=#ef4444;options=bold>🚀 Rocket Framework</> <fg=white;options=bold>• v1.0</>');
+        $output->writeln('<fg=#ef4444;options=bold>🚀 Rocket Framework</> <fg=white;options=bold>• v'.Self::packageVersion().'</>');
         $output->writeln('<fg=white;options=bold>──────────────────────────</>');
         $output->writeln('🌞 A static site generator written in PHP which uses Laravel\'s Blade template engine.');
         $output->writeln('');

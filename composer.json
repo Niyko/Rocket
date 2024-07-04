@@ -2,7 +2,7 @@
     "name": "niyko/rocket",
     "description": "Rocket is a static site generator written in PHP which uses Laravel's Blade template engine under the hood to generate build.",
     "type": "library",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "license": "MIT",
     "authors": [
         {
