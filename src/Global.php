@@ -19,7 +19,3 @@ function asset($path){
     
     return '/assets/'.$path.'?integrity='.filemtime($file_real_path);
 }
-
-function env($key){
-    return $_ENV[$key];
-}

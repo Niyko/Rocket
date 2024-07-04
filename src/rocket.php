@@ -9,8 +9,8 @@ class Rocket
 {
     public static function init(){
         $GLOBALS['_rocket_pages'] = [];
-
-        $dotenv = Dotenv::createImmutable(__DIR__);
+        
+        $dotenv = Dotenv::createImmutable(getcwd());
         $dotenv->load();
 
         Ignition::make()
