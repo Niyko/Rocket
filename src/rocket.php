@@ -2,12 +2,16 @@
 
 namespace Niyko\Rocket;
 
+use Dotenv\Dotenv;
 use Spatie\Ignition\Ignition;
 
 class Rocket
 {
     public static function init(){
         $GLOBALS['_rocket_pages'] = [];
+
+        $dotenv = Dotenv::createImmutable(__DIR__);
+        $dotenv->load();
 
         Ignition::make()
             ->setTheme('dark')
