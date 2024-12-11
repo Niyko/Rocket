@@ -3,13 +3,16 @@
 namespace Niyko\Rocket\Console\Commands;
 
 use Niyko\Rocket\Blade;
+use Niyko\Rocket\Config;
 use Niyko\Rocket\Console\Helper;
+use Niyko\Rocket\Minify;
 use PhpZip\Exception\ZipException;
 use PhpZip\ZipFile;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 
 class Build extends Command
 {
@@ -25,6 +28,9 @@ class Build extends Command
         $output->writeln('<fg=white;options=bold>──────────────────────────</>');
         $output->writeln('<fg=yellow>🔥 Baking project production build.</>');
         $output->writeln('');
+
+        if($file_system->exists('cache/views')) $file_system->remove('cache/views');
+        $file_system->mkdir('cache/views');
 
         if(!$file_system->exists('build')) $file_system->mkdir('build');
 
@@ -47,6 +53,7 @@ class Build extends Command
 
         foreach($GLOBALS['_rocket_pages'] as $path => $page){
             $html = Blade::getHtml($page['view']['path'], $page['view']['parameters']);
+            if(Config::get('build.minifyHtml')) $html = Minify::html($html);
 
             if($path=='/'){
                 $file_name = 'index.html';
@@ -72,9 +79,51 @@ class Build extends Command
         $output->writeln('');
         $output->write("\033[1A");
         $output->write("\033[2K");
+        
         $output->write("\033[1A");
         $output->write("\033[2K");
         $output->writeln('<fg=green>✅ Build completed successfully.</>');
+
+        if(Config::get('build.minifyAssets')){
+            $output->writeln('⚙️ Minifying the build css and js files.');
+
+            $build_file_finder = new Finder();
+            $build_file_finder->files()->in('dist')->name('*.js')->name('*.css');
+
+            $progress_bar = Helper::progressBar($output, count($build_file_finder));
+            $progress_bar->start();
+
+            foreach($build_file_finder as $file){
+                $file_path = $file->getPath();
+                $file_real_path = $file->getRealPath();
+                $file_content = file_get_contents($file_real_path);
+
+                if($file->getExtension()=='css'){
+                    $file_content = Minify::css($file_content);
+                }
+                else{
+                    $file_content = Minify::js($file_content);
+                }
+    
+                $file_system->remove($file_real_path);
+                $file_system->dumpFile($file_real_path, $file_content);
+
+                $progress_bar->advance();
+            }
+
+            $progress_bar->finish();
+
+            sleep(1);
+
+            $output->writeln('');
+            $output->write("\033[1A");
+            $output->write("\033[2K");
+
+            $output->write("\033[1A");
+            $output->write("\033[2K");
+            $output->writeln('<fg=green>✅ Minification completed successfully.</>');
+        }
+
         $output->writeln('⚙️ Compressing the build to a zip file.');
 
         $zip_file = new ZipFile();

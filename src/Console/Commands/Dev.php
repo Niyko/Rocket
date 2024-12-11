@@ -21,7 +21,8 @@ class Dev extends Command
         }
 
         $file_system = new Filesystem();
-        if(!$file_system->exists('cache')) $file_system->mkdir('cache');
+        if($file_system->exists('cache/views')) $file_system->remove('cache/views');
+        $file_system->mkdir('cache/views');
 
         $output->writeln('');
         $output->writeln('<fg=#ef4444;options=bold>🚀 Rocket Framework</> <fg=white;options=bold>• v'.Helper::packageVersion().'</>');

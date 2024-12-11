@@ -9,6 +9,7 @@ class Rocket
 {
     public static function init(){
         $GLOBALS['_rocket_pages'] = [];
+        $GLOBALS['_rocket_config'] = Config::getRenderedConfigs();
         
         $dotenv = Dotenv::createImmutable(getcwd());
         $dotenv->load();

@@ -43,6 +43,11 @@ class Create extends Command
             $output->writeln('<fg=green>✅ Sample views are created.</>');
         }
 
+        if(!$file_system->exists('config.json')){
+            $file_system->copy(Helper::getPackagePath('templates/config.json'), 'config.json');
+            $output->writeln('<fg=green>✅ Config file is created.</>');
+        }
+
         if(!$file_system->exists('assets')){
             $file_system->mkdir('assets');
             $file_system->mirror(Helper::getPackagePath('templates/css'), 'assets/css');
