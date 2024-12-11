@@ -24,10 +24,10 @@ function asset($path){
     return $base_url.'/assets/'.$path.'?integrity='.filemtime($file_real_path);
 }
 
-function css($path, $attributes=[], $options=[]){
+function css($path, $attributes = [], $options = []){
     return Helper::getCSSOrJSAsHTML('css', $path, $attributes, $options);
 }
 
-function js($path, $attributes=[], $options=[]){
+function js($path, $attributes = [], $options = []){
     return Helper::getCSSOrJSAsHTML('js', $path, $attributes, $options);
 }

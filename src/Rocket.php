@@ -11,8 +11,10 @@ class Rocket
         $GLOBALS['_rocket_pages'] = [];
         $GLOBALS['_rocket_config'] = Config::getRenderedConfigs();
         
-        $dotenv = Dotenv::createImmutable(getcwd());
-        $dotenv->load();
+        if(file_exists(getcwd().'/.env')){
+            $dotenv = Dotenv::createImmutable(getcwd());
+            $dotenv->load();
+        }
 
         Ignition::make()
             ->setTheme('dark')
